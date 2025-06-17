@@ -1,5 +1,5 @@
 {
-	"name": "Desafio Golang, Observabilidade & Open Telemetry",
+	"name": "Labs Golang, Concorrencia",
 	"build":{
 		"context": ".",
 		"dockerfile": "Dockerfile"
