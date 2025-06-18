@@ -1,15 +1,15 @@
-FROM golang:1.20
+FROM golang:1.24-alpine AS build
 
 WORKDIR /app
 
-COPY go.mod ./
-COPY go.sum ./
-RUN go mod download
-
 COPY . .
+RUN go mod tidy \
+&& GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -C cmd/auction/main.go -o auction
 
-RUN go build -o /app/auction cmd/auction/main.go
-
+FROM scratch
+WORKDIR /app
+COPY --from=build /app/cmd/auction/auction auction
+COPY --from=build /app/cmd/auction/.env cmd/auction/.env
+COPY --from=build /etc/ssl/certs/ /etc/ssl/certs/
 EXPOSE 8080
-
-ENTRYPOINT ["/app/auction"]
+ENTRYPOINT ["./auction"]
