@@ -1,3 +1,6 @@
+//Endpoints de usuários
+
+//Cria um usuário
 POST http://localhost:8080/user HTTP/1.1
 Host: localhost:8080
 Content-Type: application/json
@@ -7,22 +10,19 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/user/89f8399f-373f-46af-9ade-5e7b50a37b6c HTTP/1.1
-Host: localhost:8080
-Accept: application/json
-
-###
+//Lista todos os usuários criados
 GET http://localhost:8080/user HTTP/1.1
 Host: localhost:8080
 Content-Type: application/json
 
 ###
-GET http://localhost:8080/auction?status=0 HTTP/1.1
+//Lista um usuário por id
+GET http://localhost:8080/user/:userId HTTP/1.1
 Host: localhost:8080
 Accept: application/json
 
-
 ###
+//Cria um leilão
 POST http://localhost:8080/auction HTTP/1.1
 Host: localhost:8080
 Content-Type: application/json
@@ -35,16 +35,29 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/auction/fc317f4a-9b37-4a30-b568-e2077d355cb0 HTTP/1.1
+//Lista todos os leilões criados
+//parametros:
+//-> status (numérico)
+//-> category (string)
+//-> productName (string)
+GET http://localhost:8080/auction?status=0 HTTP/1.1
 Host: localhost:8080
 Accept: application/json
 
 ###
-GET http://localhost:8080/auction/winner/fc317f4a-9b37-4a30-b568-e2077d355cb0 HTTP/1.1
+//Lista um leilão específico
+GET http://localhost:8080/auction/:auctionId HTTP/1.1
 Host: localhost:8080
 Accept: application/json
 
 ###
+//Consulta vencedor de um leilão
+GET http://localhost:8080/auction/winner/:auctionId HTTP/1.1
+Host: localhost:8080
+Accept: application/json
+
+###
+//Cria um lance em um leilão
 POST http://localhost:8080/bid HTTP/1.1
 Host: localhost:8080
 Accept: application/json
@@ -56,7 +69,8 @@ Accept: application/json
 }
 
 ###
-GET http://localhost:8080/bid/fc317f4a-9b37-4a30-b568-e2077d355cb0 HTTP/1.1
+//Lista todos os lances de um leilão
+GET http://localhost:8080/bid/:auctionId HTTP/1.1
 Host: localhost:8080
 Accept: application/json
 
