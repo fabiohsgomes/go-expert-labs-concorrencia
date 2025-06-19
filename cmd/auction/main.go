@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"fullcycle-auction_go/configuration/database/mongodb"
 	"fullcycle-auction_go/internal/infra/api/web/controller/auction_controller"
 	"fullcycle-auction_go/internal/infra/api/web/controller/bid_controller"
@@ -12,16 +13,25 @@ import (
 	"fullcycle-auction_go/internal/usecase/auction_usecase"
 	"fullcycle-auction_go/internal/usecase/bid_usecase"
 	"fullcycle-auction_go/internal/usecase/user_usecase"
+	"log"
+	"os"
+	"strings"
+
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
-	"log"
 )
 
 func main() {
 	ctx := context.Background()
 
-	if err := godotenv.Load("cmd/auction/.env"); err != nil {
+	pathenvfile := "cmd/auction/.env"
+
+	if ambiente, existe := os.LookupEnv("AMBIENTE_PUBLICACAO"); existe {
+		pathenvfile = fmt.Sprintf("cmd/auction/.%s.env", strings.ToLower(ambiente))
+	}
+
+	if err := godotenv.Load(pathenvfile); err != nil {
 		log.Fatal("Error trying to load env variables")
 		return
 	}
@@ -42,7 +52,9 @@ func main() {
 	router.GET("/auction/winner/:auctionId", auctionsController.FindWinningBidByAuctionId)
 	router.POST("/bid", bidController.CreateBid)
 	router.GET("/bid/:auctionId", bidController.FindBidByAuctionId)
+	router.GET("/user", userController.FindUsers)
 	router.GET("/user/:userId", userController.FindUserById)
+	router.POST("/user", userController.CreateUser)
 
 	router.Run(":8080")
 }

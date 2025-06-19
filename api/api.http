@@ -1,0 +1,62 @@
+POST http://localhost:8080/user HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "name":"Nome 1"
+}
+
+###
+GET http://localhost:8080/user/89f8399f-373f-46af-9ade-5e7b50a37b6c HTTP/1.1
+Host: localhost:8080
+Accept: application/json
+
+###
+GET http://localhost:8080/user HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+###
+GET http://localhost:8080/auction?status=0 HTTP/1.1
+Host: localhost:8080
+Accept: application/json
+
+
+###
+POST http://localhost:8080/auction HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+"product_name":"Café",
+"category":"Alimento",
+"description":"Café do bom",
+"condition":0
+}
+
+###
+GET http://localhost:8080/auction/fc317f4a-9b37-4a30-b568-e2077d355cb0 HTTP/1.1
+Host: localhost:8080
+Accept: application/json
+
+###
+GET http://localhost:8080/auction/winner/fc317f4a-9b37-4a30-b568-e2077d355cb0 HTTP/1.1
+Host: localhost:8080
+Accept: application/json
+
+###
+POST http://localhost:8080/bid HTTP/1.1
+Host: localhost:8080
+Accept: application/json
+
+{
+"user_id":"",
+"auction_id":"",
+"amount":""
+}
+
+###
+GET http://localhost:8080/bid/fc317f4a-9b37-4a30-b568-e2077d355cb0 HTTP/1.1
+Host: localhost:8080
+Accept: application/json
+

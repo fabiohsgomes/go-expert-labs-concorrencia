@@ -9,6 +9,7 @@ RUN go mod tidy \
 FROM scratch
 WORKDIR /app
 COPY --from=build /app/cmd/auction/auction auction
+COPY --from=build /app/cmd/auction/.env cmd/auction/.env
 COPY --from=build /etc/ssl/certs/ /etc/ssl/certs/
 EXPOSE 8080
 ENTRYPOINT ["./auction"]
